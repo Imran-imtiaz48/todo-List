@@ -1,59 +1,67 @@
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+    background: linear-gradient(135deg, #e2e2e2, #ffffff);
     margin: 0;
+    box-sizing: border-box;
 }
 
 .container {
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    width: 350px;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    width: 360px;
     text-align: center;
-    animation: fadeIn 1s ease-in-out;
+    backdrop-filter: blur(10px); /* Glassmorphism effect */
+    box-sizing: border-box;
 }
 
 h1 {
     color: #333;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
+    font-size: 2rem;
 }
 
 p {
     color: #666;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
+    font-size: 1rem;
 }
 
 .task-inputs {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 15px;
 }
 
 input[type="text"], input[type="date"], select {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     border: 1px solid #ddd;
-    border-radius: 5px;
-    transition: border-color 0.3s ease;
+    border-radius: 8px;
+    background: #f5f5f5;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
 }
 
 input[type="text"]:focus, select:focus {
     border-color: #007bff;
+    background: #ffffff;
     outline: none;
 }
 
 button {
-    padding: 10px;
+    padding: 12px;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     color: #fff;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
+    box-sizing: border-box;
 }
 
 button:hover {
@@ -62,7 +70,7 @@ button:hover {
 }
 
 button:active {
-    transform: scale(0.98);
+    transform: scale(0.95);
 }
 
 #addTaskButton {
@@ -74,18 +82,20 @@ button:active {
 }
 
 .filters {
-    margin: 20px 0;
+    margin: 25px 0;
 }
 
 .filter-button {
-    margin: 0 5px;
-    padding: 5px 10px;
+    margin: 0 8px;
+    padding: 8px 16px;
     border: none;
-    border-radius: 5px;
+    border-radius: 20px;
     cursor: pointer;
     background-color: #007bff;
     color: white;
-    transition: background-color 0.3s ease;
+    font-weight: bold;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-sizing: border-box;
 }
 
 .filter-button.active {
@@ -93,31 +103,36 @@ button:active {
 }
 
 input[type="text"]#searchInput {
-    width: calc(100% - 22px);
-    margin: 10px 0;
+    width: calc(100% - 24px);
+    margin: 15px 0;
+    box-sizing: border-box;
 }
 
 ul {
     list-style-type: none;
     padding: 0;
     margin: 0;
+    box-sizing: border-box;
 }
 
 li {
-    background-color: #f8f9fa;
-    padding: 15px;
+    background: #ffffff;
+    padding: 20px;
     border: 1px solid #ddd;
-    border-radius: 5px;
-    margin: 5px 0;
+    border-radius: 12px;
+    margin: 10px 0;
     display: flex;
     flex-direction: column;
-    align-items: start;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    align-items: stretch; /* Ensures full-width alignment */
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
 }
 
 li:hover {
+    background: #f8f9fa;
     transform: translateY(-5px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 li.completed {
@@ -127,23 +142,28 @@ li.completed {
 
 li .task-info {
     width: 100%;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 
 li .actions {
     display: flex;
-    gap: 5px;
-    width: 100%;
+    gap: 8px;
+    justify-content: flex-end; /* Align buttons to the right */
+    flex-wrap: wrap; /* Allows wrapping if necessary */
 }
 
 li .remove, li .edit, li .complete {
     background-color: #dc3545;
     color: white;
     border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
+    padding: 8px 16px;
+    border-radius: 20px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
 }
 
 li .edit {
@@ -156,14 +176,17 @@ li .complete {
 
 li .remove:hover {
     background-color: #c82333;
+    transform: scale(1.05);
 }
 
 li .edit:hover {
     background-color: #e0a800;
+    transform: scale(1.05);
 }
 
 li .complete:hover {
     background-color: #1e7e34;
+    transform: scale(1.05);
 }
 
 @keyframes fadeIn {
