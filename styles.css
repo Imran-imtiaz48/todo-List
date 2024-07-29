@@ -54,15 +54,45 @@ li {
     align-items: center;
 }
 
-li .remove {
+li.completed {
+    text-decoration: line-through;
+    color: gray;
+}
+
+li .remove,
+li .edit,
+li .complete {
     background-color: #dc3545;
     color: white;
     border: none;
     padding: 5px 10px;
     border-radius: 5px;
     cursor: pointer;
+    margin-left: 5px;
 }
 
-li .remove:hover {
-    background-color: #c82333;
+li .edit {
+    background-color: #ffc107;
+}
+
+li .complete {
+    background-color: #28a745;
+}
+
+.filters {
+    margin: 10px 0;
+}
+
+.filter-button {
+    margin: 0 5px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+}
+
+.filter-button.active {
+    background-color: #0056b3;
 }
