@@ -1,98 +1,80 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #f0f0f0;
+    background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
     margin: 0;
 }
 
 .container {
-    background-color: white;
+    background-color: #ffffff;
     padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 300px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 350px;
     text-align: center;
+    animation: fadeIn 1s ease-in-out;
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+p {
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.task-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 input[type="text"], input[type="date"], select {
-    width: calc(100% - 22px);
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-button {
-    padding: 10px 20px;
-    border: none;
-    background-color: #28a745;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #218838;
-}
-
-ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-li {
-    background-color: #f8f9fa;
+    width: 100%;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
-    margin: 5px 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-direction: column;
-    align-items: start;
+    transition: border-color 0.3s ease;
 }
 
-li.completed {
-    text-decoration: line-through;
-    color: gray;
+input[type="text"]:focus, select:focus {
+    border-color: #007bff;
+    outline: none;
 }
 
-li .task-info {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-}
-
-li .actions {
-    display: flex;
-    justify-content: flex-end;
-    width: 100%;
-}
-
-li .remove, li .edit, li .complete {
-    background-color: #dc3545;
-    color: white;
+button {
+    padding: 10px;
     border: none;
-    padding: 5px 10px;
     border-radius: 5px;
+    color: #fff;
     cursor: pointer;
-    margin-left: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-li .edit {
-    background-color: #ffc107;
+button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
 }
 
-li .complete {
+button:active {
+    transform: scale(0.98);
+}
+
+#addTaskButton {
     background-color: #28a745;
 }
 
+#clearAllButton {
+    background-color: #dc3545;
+}
+
 .filters {
-    margin: 10px 0;
+    margin: 20px 0;
 }
 
 .filter-button {
@@ -103,8 +85,94 @@ li .complete {
     cursor: pointer;
     background-color: #007bff;
     color: white;
+    transition: background-color 0.3s ease;
 }
 
 .filter-button.active {
     background-color: #0056b3;
+}
+
+input[type="text"]#searchInput {
+    width: calc(100% - 22px);
+    margin: 10px 0;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin: 5px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+li:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+li.completed {
+    text-decoration: line-through;
+    color: gray;
+}
+
+li .task-info {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+li .actions {
+    display: flex;
+    gap: 5px;
+    width: 100%;
+}
+
+li .remove, li .edit, li .complete {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+li .edit {
+    background-color: #ffc107;
+}
+
+li .complete {
+    background-color: #28a745;
+}
+
+li .remove:hover {
+    background-color: #c82333;
+}
+
+li .edit:hover {
+    background-color: #e0a800;
+}
+
+li .complete:hover {
+    background-color: #1e7e34;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

@@ -7,6 +7,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const filterButtons = document.querySelectorAll('.filter-button');
     const searchInput = document.getElementById('searchInput');
     const clearAllButton = document.getElementById('clearAllButton');
+    const taskCountElement = document.createElement('div');
+    
+    taskCountElement.id = 'taskCount';
+    document.querySelector('.container').insertBefore(taskCountElement, taskList);
 
     loadTasks();
 
@@ -66,11 +70,21 @@ document.addEventListener('DOMContentLoaded', () => {
         const searchText = searchInput.value.trim().toLowerCase();
         taskList.innerHTML = '';
 
-        tasks.forEach((task, index) => {
-            if (activeFilter === 'completed' && !task.completed) return;
-            if (activeFilter === 'incomplete' && task.completed) return;
-            if (searchText && !task.text.toLowerCase().includes(searchText)) return;
+        const filteredTasks = tasks
+            .filter(task => {
+                if (activeFilter === 'completed' && !task.completed) return false;
+                if (activeFilter === 'incomplete' && task.completed) return false;
+                if (searchText && !task.text.toLowerCase().includes(searchText)) return false;
+                return true;
+            })
+            .sort((a, b) => {
+                if (a.dueDate && b.dueDate) {
+                    return new Date(a.dueDate) - new Date(b.dueDate);
+                }
+                return 0;
+            });
 
+        filteredTasks.forEach((task, index) => {
             const listItem = document.createElement('li');
             if (task.completed) listItem.classList.add('completed');
             listItem.innerHTML = `
@@ -87,6 +101,9 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
             taskList.appendChild(listItem);
         });
+
+        updateTaskCount(tasks);
+        showDueDateNotifications(tasks);
     }
 
     function getTasksFromLocalStorage() {
@@ -107,5 +124,29 @@ document.addEventListener('DOMContentLoaded', () => {
     function clearAllTasks() {
         localStorage.removeItem('tasks');
         renderTasks();
+    }
+
+    function updateTaskCount(tasks) {
+        const total = tasks.length;
+        const completed = tasks.filter(task => task.completed).length;
+        const incomplete = total - completed;
+        taskCountElement.innerHTML = `
+            <p>Total Tasks: ${total}</p>
+            <p>Completed Tasks: ${completed}</p>
+            <p>Incomplete Tasks: ${incomplete}</p>
+        `;
+    }
+
+    function showDueDateNotifications(tasks) {
+        const now = new Date();
+        tasks.forEach(task => {
+            if (task.dueDate) {
+                const dueDate = new Date(task.dueDate);
+                const daysLeft = Math.ceil((dueDate - now) / (1000 * 60 * 60 * 24));
+                if (daysLeft <= 1 && !task.completed) {
+                    alert(`Task "${task.text}" is due soon!`);
+                }
+            }
+        });
     }
 });
