@@ -17,7 +17,7 @@ body {
     text-align: center;
 }
 
-input[type="text"] {
+input[type="text"], input[type="date"], select {
     width: calc(100% - 22px);
     padding: 10px;
     margin: 10px 0;
@@ -52,6 +52,8 @@ li {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-direction: column;
+    align-items: start;
 }
 
 li.completed {
@@ -59,9 +61,19 @@ li.completed {
     color: gray;
 }
 
-li .remove,
-li .edit,
-li .complete {
+li .task-info {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+li .actions {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+li .remove, li .edit, li .complete {
     background-color: #dc3545;
     color: white;
     border: none;
