@@ -1,152 +1,180 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const taskInput = document.getElementById('taskInput');
-    const dueDateInput = document.getElementById('dueDateInput');
-    const priorityInput = document.getElementById('priorityInput');
-    const addTaskButton = document.getElementById('addTaskButton');
-    const taskList = document.getElementById('taskList');
-    const filterButtons = document.querySelectorAll('.filter-button');
-    const searchInput = document.getElementById('searchInput');
-    const clearAllButton = document.getElementById('clearAllButton');
-    const taskCountElement = document.createElement('div');
-    
-    taskCountElement.id = 'taskCount';
-    document.querySelector('.container').insertBefore(taskCountElement, taskList);
+document.addEventListener("DOMContentLoaded", function () {
+    const taskInput = document.getElementById("taskInput");
+    const dueDateInput = document.getElementById("dueDateInput");
+    const priorityInput = document.getElementById("priorityInput");
+    const addTaskButton = document.getElementById("addTaskButton");
+    const clearAllButton = document.getElementById("clearAllButton");
+    const taskList = document.getElementById("taskList");
+    const filterButtons = document.querySelectorAll(".filter-button");
+    const searchInput = document.getElementById("searchInput");
 
-    loadTasks();
+    const noteInput = document.getElementById("noteInput");
+    const saveNoteButton = document.getElementById("saveNoteButton");
+    const notesList = document.getElementById("notesList");
 
-    addTaskButton.addEventListener('click', addTask);
-    taskList.addEventListener('click', handleTaskClick);
-    filterButtons.forEach(button => button.addEventListener('click', filterTasks));
-    searchInput.addEventListener('input', renderTasks);
-    clearAllButton.addEventListener('click', clearAllTasks);
+    const apiKey = "your_openweathermap_api_key"; // Replace with your OpenWeatherMap API key
 
-    function addTask() {
-        const taskText = taskInput.value.trim();
+    // Load saved tasks from localStorage
+    let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+    // Load saved notes from localStorage
+    let notes = JSON.parse(localStorage.getItem("notes")) || [];
+
+    // Event listener for adding a task
+    addTaskButton.addEventListener("click", function () {
+        const task = taskInput.value.trim();
         const dueDate = dueDateInput.value;
         const priority = priorityInput.value;
 
-        if (taskText !== '') {
-            const task = { text: taskText, dueDate, priority, completed: false };
-            const tasks = getTasksFromLocalStorage();
-            tasks.push(task);
-            saveTasksToLocalStorage(tasks);
-            taskInput.value = '';
-            dueDateInput.value = '';
-            priorityInput.value = 'Low';
+        if (task) {
+            tasks.push({ task, dueDate, priority, completed: false });
+            saveTasks();
             renderTasks();
+            taskInput.value = "";
+            dueDateInput.value = "";
+            priorityInput.value = "Low";
         }
-    }
+    });
 
-    function handleTaskClick(event) {
-        const target = event.target;
-        const listItem = target.closest('li');
-        const tasks = getTasksFromLocalStorage();
-        const taskIndex = Array.from(taskList.children).indexOf(listItem);
-
-        if (target.classList.contains('remove')) {
-            tasks.splice(taskIndex, 1);
-        } else if (target.classList.contains('edit')) {
-            const newTaskText = prompt('Edit task:', listItem.querySelector('.task-text').textContent.trim());
-            if (newTaskText !== null) {
-                tasks[taskIndex].text = newTaskText.trim();
-            }
-        } else if (target.classList.contains('complete')) {
-            tasks[taskIndex].completed = !tasks[taskIndex].completed;
-        }
-
-        saveTasksToLocalStorage(tasks);
+    // Event listener for clearing all tasks
+    clearAllButton.addEventListener("click", function () {
+        tasks = [];
+        saveTasks();
         renderTasks();
+    });
+
+    // Event listeners for filter buttons
+    filterButtons.forEach(button => {
+        button.addEventListener("click", function () {
+            filterButtons.forEach(btn => btn.classList.remove("active"));
+            button.classList.add("active");
+            renderTasks();
+        });
+    });
+
+    // Event listener for searching tasks
+    searchInput.addEventListener("input", renderTasks);
+
+    // Save tasks to localStorage
+    function saveTasks() {
+        localStorage.setItem("tasks", JSON.stringify(tasks));
     }
 
-    function filterTasks(event) {
-        filterButtons.forEach(button => button.classList.remove('active'));
-        event.target.classList.add('active');
-        renderTasks();
-    }
-
+    // Render tasks
     function renderTasks() {
-        const tasks = getTasksFromLocalStorage();
-        const activeFilter = document.querySelector('.filter-button.active').dataset.filter;
-        const searchText = searchInput.value.trim().toLowerCase();
-        taskList.innerHTML = '';
-
-        const filteredTasks = tasks
+        const filter = document.querySelector(".filter-button.active").dataset.filter;
+        const searchTerm = searchInput.value.toLowerCase();
+        taskList.innerHTML = "";
+        tasks
             .filter(task => {
-                if (activeFilter === 'completed' && !task.completed) return false;
-                if (activeFilter === 'incomplete' && task.completed) return false;
-                if (searchText && !task.text.toLowerCase().includes(searchText)) return false;
+                if (filter === "completed" && !task.completed) return false;
+                if (filter === "incomplete" && task.completed) return false;
+                if (!task.task.toLowerCase().includes(searchTerm)) return false;
                 return true;
             })
-            .sort((a, b) => {
-                if (a.dueDate && b.dueDate) {
-                    return new Date(a.dueDate) - new Date(b.dueDate);
-                }
-                return 0;
-            });
+            .forEach((task, index) => {
+                const li = document.createElement("li");
+                li.className = task.completed ? "completed" : "";
 
-        filteredTasks.forEach((task, index) => {
-            const listItem = document.createElement('li');
-            if (task.completed) listItem.classList.add('completed');
-            listItem.innerHTML = `
-                <div class="task-info">
-                    <span class="task-text">${task.text}</span>
-                    <span class="task-due-date">${task.dueDate ? `Due: ${task.dueDate}` : ''}</span>
-                    <span class="task-priority">Priority: ${task.priority}</span>
-                </div>
-                <div class="actions">
-                    <button class="complete">${task.completed ? 'Uncomplete' : 'Complete'}</button>
+                const taskInfo = document.createElement("div");
+                taskInfo.className = "task-info";
+                taskInfo.innerHTML = `
+                    <p>${task.task}</p>
+                    <small>Due: ${task.dueDate} | Priority: ${task.priority}</small>
+                `;
+                li.appendChild(taskInfo);
+
+                const actions = document.createElement("div");
+                actions.className = "actions";
+                actions.innerHTML = `
+                    <button class="complete">${task.completed ? "Uncomplete" : "Complete"}</button>
                     <button class="edit">Edit</button>
                     <button class="remove">Remove</button>
-                </div>
-            `;
-            taskList.appendChild(listItem);
-        });
+                `;
+                actions.querySelector(".complete").addEventListener("click", () => {
+                    task.completed = !task.completed;
+                    saveTasks();
+                    renderTasks();
+                });
+                actions.querySelector(".edit").addEventListener("click", () => {
+                    taskInput.value = task.task;
+                    dueDateInput.value = task.dueDate;
+                    priorityInput.value = task.priority;
+                    tasks.splice(index, 1);
+                    saveTasks();
+                    renderTasks();
+                });
+                actions.querySelector(".remove").addEventListener("click", () => {
+                    tasks.splice(index, 1);
+                    saveTasks();
+                    renderTasks();
+                });
+                li.appendChild(actions);
 
-        updateTaskCount(tasks);
-        showDueDateNotifications(tasks);
+                taskList.appendChild(li);
+            });
     }
 
-    function getTasksFromLocalStorage() {
-        return JSON.parse(localStorage.getItem('tasks')) || [];
-    }
+    // Event listener for saving a note
+    saveNoteButton.addEventListener("click", function () {
+        const note = noteInput.value.trim();
 
-    function saveTasksToLocalStorage(tasks) {
-        localStorage.setItem('tasks', JSON.stringify(tasks));
-    }
-
-    function loadTasks() {
-        const tasks = getTasksFromLocalStorage();
-        if (tasks.length > 0) {
-            renderTasks();
+        if (note) {
+            notes.push(note);
+            saveNotes();
+            renderNotes();
+            noteInput.value = "";
         }
+    });
+
+    // Save notes to localStorage
+    function saveNotes() {
+        localStorage.setItem("notes", JSON.stringify(notes));
     }
 
-    function clearAllTasks() {
-        localStorage.removeItem('tasks');
-        renderTasks();
+    // Render notes
+    function renderNotes() {
+        notesList.innerHTML = "";
+        notes.forEach((note, index) => {
+            const noteItem = document.createElement("div");
+            noteItem.className = "note-item";
+            noteItem.textContent = note;
+
+            const deleteButton = document.createElement("button");
+            deleteButton.textContent = "Delete";
+            deleteButton.className = "remove";
+            deleteButton.addEventListener("click", () => {
+                notes.splice(index, 1);
+                saveNotes();
+                renderNotes();
+            });
+
+            noteItem.appendChild(deleteButton);
+            notesList.appendChild(noteItem);
+        });
     }
 
-    function updateTaskCount(tasks) {
-        const total = tasks.length;
-        const completed = tasks.filter(task => task.completed).length;
-        const incomplete = total - completed;
-        taskCountElement.innerHTML = `
-            <p>Total Tasks: ${total}</p>
-            <p>Completed Tasks: ${completed}</p>
-            <p>Incomplete Tasks: ${incomplete}</p>
+    // Fetch weather information
+    async function fetchWeather() {
+        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=your_city_name&appid=${apiKey}&units=metric`);
+        const data = await response.json();
+        const weatherInfo = document.getElementById("weatherInfo");
+        weatherInfo.innerHTML = `
+            <p>${data.name}: ${data.weather[0].description}, ${data.main.temp}°C</p>
         `;
     }
 
-    function showDueDateNotifications(tasks) {
-        const now = new Date();
-        tasks.forEach(task => {
-            if (task.dueDate) {
-                const dueDate = new Date(task.dueDate);
-                const daysLeft = Math.ceil((dueDate - now) / (1000 * 60 * 60 * 24));
-                if (daysLeft <= 1 && !task.completed) {
-                    alert(`Task "${task.text}" is due soon!`);
-                }
-            }
-        });
+    // Fetch quote of the day
+    async function fetchQuote() {
+        const response = await fetch("https://api.quotable.io/random");
+        const data = await response.json();
+        const quoteText = document.getElementById("quoteText");
+        quoteText.textContent = `"${data.content}" — ${data.author}`;
     }
+
+    // Initial render
+    renderTasks();
+    renderNotes();
+    fetchWeather();
+    fetchQuote();
 });

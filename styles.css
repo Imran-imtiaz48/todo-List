@@ -1,59 +1,89 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Styling */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Poppins', sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: linear-gradient(135deg, #e2e2e2, #ffffff);
-    margin: 0;
-    box-sizing: border-box;
+    background: linear-gradient(135deg, #ece9e6, #ffffff);
 }
 
+/* Container Styling */
 .container {
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.85);
     padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
-    width: 360px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 1200px;
     text-align: center;
+    animation: fadeIn 1s ease-in-out;
     backdrop-filter: blur(10px); /* Glassmorphism effect */
-    box-sizing: border-box;
+    overflow-y: auto;
+    height: 90vh;
 }
 
+/* Header Styling */
 h1 {
     color: #333;
+    font-size: 2.5rem;
     margin-bottom: 15px;
-    font-size: 2rem;
 }
 
+/* Section Titles */
+h2 {
+    color: #555;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+/* Paragraph Styling */
 p {
-    color: #666;
-    margin-bottom: 25px;
+    color: #777;
     font-size: 1rem;
+    margin-bottom: 20px;
 }
 
+/* Weather Section */
+.weather, .quote, .todo-list, .notes {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Task Input Styling */
 .task-inputs {
     display: flex;
     flex-direction: column;
     gap: 15px;
+    margin-bottom: 20px;
 }
 
-input[type="text"], input[type="date"], select {
+input[type="text"], input[type="date"], select, textarea {
     width: 100%;
     padding: 12px;
     border: 1px solid #ddd;
     border-radius: 8px;
     background: #f5f5f5;
     transition: all 0.3s ease;
-    box-sizing: border-box;
 }
 
-input[type="text"]:focus, select:focus {
+input[type="text"]:focus, select:focus, input[type="date"]:focus, textarea:focus {
     border-color: #007bff;
-    background: #ffffff;
+    background: #fff;
     outline: none;
 }
 
+/* Button Styling */
 button {
     padding: 12px;
     border: none;
@@ -61,11 +91,9 @@ button {
     color: #fff;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
-    box-sizing: border-box;
 }
 
 button:hover {
-    background-color: #0056b3;
     transform: scale(1.05);
 }
 
@@ -73,64 +101,78 @@ button:active {
     transform: scale(0.95);
 }
 
+/* Specific Button Colors */
 #addTaskButton {
-    background-color: #28a745;
+    background: linear-gradient(135deg, #28a745, #218838);
 }
 
 #clearAllButton {
-    background-color: #dc3545;
+    background: linear-gradient(135deg, #dc3545, #c82333);
+    margin-top: 15px;
 }
 
+#saveNoteButton {
+    background: linear-gradient(135deg, #17a2b8, #138496);
+    margin-top: 15px;
+}
+
+/* Filter Button Styling */
 .filters {
-    margin: 25px 0;
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
 }
 
 .filter-button {
-    margin: 0 8px;
-    padding: 8px 16px;
+    flex: 1;
+    margin: 0 5px;
+    padding: 10px;
     border: none;
     border-radius: 20px;
-    cursor: pointer;
-    background-color: #007bff;
+    background: linear-gradient(135deg, #007bff, #0056b3);
     color: white;
     font-weight: bold;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    box-sizing: border-box;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .filter-button.active {
-    background-color: #0056b3;
+    background: linear-gradient(135deg, #0056b3, #004085);
 }
 
+.filter-button:hover {
+    background: linear-gradient(135deg, #0056b3, #003766);
+}
+
+/* Search Input Styling */
 input[type="text"]#searchInput {
-    width: calc(100% - 24px);
+    width: 100%;
+    padding: 12px;
     margin: 15px 0;
-    box-sizing: border-box;
+    border-radius: 8px;
 }
 
+/* Task List Styling */
 ul {
     list-style-type: none;
     padding: 0;
     margin: 0;
-    box-sizing: border-box;
 }
 
+/* Task Item Styling */
 li {
-    background: #ffffff;
+    background: linear-gradient(135deg, #ffffff, #f8f9fa);
     padding: 20px;
     border: 1px solid #ddd;
     border-radius: 12px;
     margin: 10px 0;
     display: flex;
     flex-direction: column;
-    align-items: stretch; /* Ensures full-width alignment */
-    transition: all 0.3s ease;
+    align-items: stretch;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    box-sizing: border-box;
 }
 
 li:hover {
-    background: #f8f9fa;
     transform: translateY(-5px);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
@@ -140,16 +182,18 @@ li.completed {
     color: gray;
 }
 
+/* Task Info Styling */
 li .task-info {
     width: 100%;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
+/* Task Action Buttons */
 li .actions {
     display: flex;
-    gap: 8px;
-    justify-content: flex-end; /* Align buttons to the right */
-    flex-wrap: wrap; /* Allows wrapping if necessary */
+    gap: 10px;
+    justify-content: flex-end;
+    flex-wrap: wrap;
 }
 
 li .remove, li .edit, li .complete {
@@ -160,10 +204,6 @@ li .remove, li .edit, li .complete {
     border-radius: 20px;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
 }
 
 li .edit {
@@ -189,6 +229,7 @@ li .complete:hover {
     transform: scale(1.05);
 }
 
+/* Keyframes for Animation */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -198,4 +239,21 @@ li .complete:hover {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+/* Notes Styling */
+#noteInput {
+    height: 100px;
+}
+
+#notesList {
+    margin-top: 15px;
+}
+
+.note-item {
+    background: linear-gradient(135deg, #ffffff, #f8f9fa);
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin: 10px 0;
 }
