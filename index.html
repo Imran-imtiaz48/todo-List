@@ -3,33 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>Modern Dashboard</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <h1>Dashboard</h1>
-        <p>Welcome to your personal dashboard! Here, you can keep track of your tasks, get the latest weather updates, read inspirational quotes, and jot down quick notes. Manage your time efficiently and stay organized.</p>
-        
-        <!-- Weather Section -->
+        <h1>Modern Dashboard</h1>
         <div class="weather">
-            <h2>Current Weather</h2>
-            <div id="weatherInfo">
-                <p>Loading weather...</p>
-            </div>
+            <h2>Weather</h2>
+            <p>Loading weather...</p>
         </div>
-
-        <!-- Quote of the Day Section -->
         <div class="quote">
             <h2>Quote of the Day</h2>
-            <p id="quoteText">Loading quote...</p>
+            <p>"Action is the foundational key to all success." — Pablo Picasso</p>
         </div>
-
-        <!-- To-Do List Section -->
-        <div class="todo-list">
+        <div class="task-section">
             <h2>To-Do List</h2>
             <div class="task-inputs">
-                <input type="text" id="taskInput" placeholder="Add a new task">
+                <input type="text" id="taskInput" placeholder="Enter task">
                 <input type="date" id="dueDateInput">
                 <select id="priorityInput">
                     <option value="Low">Low</option>
@@ -44,16 +35,8 @@
                 <button data-filter="incomplete" class="filter-button">Incomplete</button>
             </div>
             <input type="text" id="searchInput" placeholder="Search tasks">
-            <button id="clearAllButton">Clear All Tasks</button>
+            <button id="clearAllButton">Clear All</button>
             <ul id="taskList"></ul>
-        </div>
-
-        <!-- Notes Section -->
-        <div class="notes">
-            <h2>Quick Notes</h2>
-            <textarea id="noteInput" placeholder="Write your notes here..."></textarea>
-            <button id="saveNoteButton">Save Note</button>
-            <div id="notesList"></div>
         </div>
     </div>
     <script src="script.js"></script>

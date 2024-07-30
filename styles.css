@@ -1,182 +1,133 @@
-/* General Reset */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/* Body Styling */
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Arial', sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: linear-gradient(135deg, #ece9e6, #ffffff);
+    background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+    margin: 0;
 }
 
-/* Container Styling */
 .container {
-    background: rgba(255, 255, 255, 0.85);
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    width: 90%;
-    max-width: 1200px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 350px;
     text-align: center;
     animation: fadeIn 1s ease-in-out;
-    backdrop-filter: blur(10px); /* Glassmorphism effect */
-    overflow-y: auto;
-    height: 90vh;
 }
 
-/* Header Styling */
 h1 {
     color: #333;
-    font-size: 2.5rem;
-    margin-bottom: 15px;
-}
-
-/* Section Titles */
-h2 {
-    color: #555;
-    font-size: 1.5rem;
     margin-bottom: 10px;
 }
 
-/* Paragraph Styling */
 p {
-    color: #777;
-    font-size: 1rem;
+    color: #666;
     margin-bottom: 20px;
 }
 
-/* Weather Section */
-.weather, .quote, .todo-list, .notes {
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 10px;
-    padding: 20px;
-    margin-bottom: 20px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-}
-
-/* Task Input Styling */
 .task-inputs {
     display: flex;
     flex-direction: column;
-    gap: 15px;
-    margin-bottom: 20px;
+    gap: 10px;
 }
 
-input[type="text"], input[type="date"], select, textarea {
+input[type="text"], input[type="date"], select {
     width: 100%;
-    padding: 12px;
+    padding: 8px;
     border: 1px solid #ddd;
-    border-radius: 8px;
-    background: #f5f5f5;
-    transition: all 0.3s ease;
+    border-radius: 5px;
+    transition: border-color 0.3s ease;
+    font-size: 0.9rem;
 }
 
-input[type="text"]:focus, select:focus, input[type="date"]:focus, textarea:focus {
+input[type="text"]:focus, select:focus {
     border-color: #007bff;
-    background: #fff;
     outline: none;
 }
 
-/* Button Styling */
 button {
-    padding: 8px 15px;
+    padding: 8px;
     border: none;
-    border-radius: 8px;
+    border-radius: 5px;
     color: #fff;
     cursor: pointer;
-    font-size: 0.9rem;
     transition: background-color 0.3s ease, transform 0.2s ease;
+    font-size: 0.9rem;
 }
 
 button:hover {
+    background-color: #0056b3;
     transform: scale(1.05);
 }
 
 button:active {
-    transform: scale(0.95);
+    transform: scale(0.98);
 }
 
-/* Specific Button Colors */
 #addTaskButton {
-    background: linear-gradient(135deg, #28a745, #218838);
+    background-color: #28a745;
+    width: 100%;
 }
 
 #clearAllButton {
-    background: linear-gradient(135deg, #dc3545, #c82333);
-    margin-top: 15px;
+    background-color: #dc3545;
+    width: 100%;
 }
 
-#saveNoteButton {
-    background: linear-gradient(135deg, #17a2b8, #138496);
-    margin-top: 15px;
-}
-
-/* Filter Button Styling */
 .filters {
-    display: flex;
-    justify-content: space-around;
     margin: 20px 0;
+    display: flex;
+    justify-content: space-between;
 }
 
 .filter-button {
     flex: 1;
     margin: 0 5px;
-    padding: 8px 12px;
+    padding: 5px 10px;
     border: none;
-    border-radius: 20px;
-    background: linear-gradient(135deg, #007bff, #0056b3);
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #007bff;
     color: white;
-    font-weight: bold;
-    font-size: 0.9rem;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    transition: background-color 0.3s ease;
+    font-size: 0.8rem;
 }
 
 .filter-button.active {
-    background: linear-gradient(135deg, #0056b3, #004085);
+    background-color: #0056b3;
 }
 
-.filter-button:hover {
-    background: linear-gradient(135deg, #0056b3, #003766);
-}
-
-/* Search Input Styling */
 input[type="text"]#searchInput {
-    width: 100%;
-    padding: 12px;
-    margin: 15px 0;
-    border-radius: 8px;
+    width: calc(100% - 16px);
+    margin: 10px 0;
+    padding: 8px;
+    font-size: 0.9rem;
 }
 
-/* Task List Styling */
 ul {
     list-style-type: none;
     padding: 0;
     margin: 0;
 }
 
-/* Task Item Styling */
 li {
-    background: linear-gradient(135deg, #ffffff, #f8f9fa);
-    padding: 20px;
+    background-color: #f8f9fa;
+    padding: 10px;
     border: 1px solid #ddd;
-    border-radius: 12px;
-    margin: 10px 0;
+    border-radius: 5px;
+    margin: 5px 0;
     display: flex;
     flex-direction: column;
-    align-items: stretch;
+    align-items: start;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 li:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 li.completed {
@@ -184,18 +135,15 @@ li.completed {
     color: gray;
 }
 
-/* Task Info Styling */
 li .task-info {
     width: 100%;
     margin-bottom: 10px;
 }
 
-/* Task Action Buttons */
 li .actions {
     display: flex;
     gap: 5px;
-    justify-content: flex-end;
-    flex-wrap: wrap;
+    width: 100%;
 }
 
 li .remove, li .edit, li .complete {
@@ -203,10 +151,10 @@ li .remove, li .edit, li .complete {
     color: white;
     border: none;
     padding: 5px 10px;
-    border-radius: 20px;
+    border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
     font-size: 0.8rem;
-    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 li .edit {
@@ -219,20 +167,16 @@ li .complete {
 
 li .remove:hover {
     background-color: #c82333;
-    transform: scale(1.05);
 }
 
 li .edit:hover {
     background-color: #e0a800;
-    transform: scale(1.05);
 }
 
 li .complete:hover {
     background-color: #1e7e34;
-    transform: scale(1.05);
 }
 
-/* Keyframes for Animation */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -242,36 +186,4 @@ li .complete:hover {
         opacity: 1;
         transform: translateY(0);
     }
-}
-
-/* Notes Styling */
-#noteInput {
-    height: 100px;
-}
-
-#notesList {
-    margin-top: 15px;
-}
-
-.note-item {
-    background: linear-gradient(135deg, #ffffff, #f8f9fa);
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    margin: 10px 0;
-}
-
-.note-item button {
-    background: linear-gradient(135deg, #dc3545, #c82333);
-    border: none;
-    border-radius: 20px;
-    padding: 5px 10px;
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.note-item button:hover {
-    background: linear-gradient(135deg, #c82333, #a71d2a);
-    transform: scale(1.05);
 }
