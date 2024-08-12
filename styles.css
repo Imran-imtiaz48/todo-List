@@ -16,10 +16,17 @@ body {
     width: 350px;
     text-align: center;
     animation: fadeIn 1s ease-in-out;
+    overflow-y: auto;
+    max-height: 90vh;
 }
 
 h1 {
     color: #333;
+    margin-bottom: 10px;
+}
+
+h2 {
+    color: #555;
     margin-bottom: 10px;
 }
 
@@ -175,6 +182,13 @@ li .edit:hover {
 
 li .complete:hover {
     background-color: #1e7e34;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 20px;
 }
 
 @keyframes fadeIn {
