@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Display current date and time
+    // Display current date and times
     const currentDateTime = document.getElementById('currentDateTime');
     const updateDateTime = () => {
         const now = new Date();
