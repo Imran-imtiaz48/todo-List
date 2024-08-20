@@ -1,6 +1,6 @@
 ## Overview
 
-This **ToDo List Dashboard** is a modern web application designed to manage tasks effectively while providing useful information like the current date and time, weather updates, a daily inspirational quote, the picture of the day, and the latest news headlines. This document details the structure, components, and functionalities of the dashboard, enabling users and developers to understand and modify it.
+The **ToDo List Dashboard** is a modern web application designed to manage tasks effectively while providing useful information like the current date and time, weather updates, a daily inspirational quote, the picture of the day, and the latest news headlines. This document details the structure, components, and functionalities of the dashboard, enabling users and developers to understand and modify it.
 
 ## File Structure
 
